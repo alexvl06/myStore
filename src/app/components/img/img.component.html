@@ -1,0 +1,6 @@
+
+<img (load)="loadEvent()" (error)="imgError()"  [src]="img" alt="Ramdon image" *ngIf="img; else altImage">
+
+<ng-template #altImage>
+  <img  [src]="defaultImage" alt="image by default">
+</ng-template>
