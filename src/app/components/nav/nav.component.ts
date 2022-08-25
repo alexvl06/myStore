@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-
+  @Input() email = ''
   showMenu = false
   counter = 0
 

@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { switchMap, tap, zip } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Auth } from '../models/auth.model';
+import { User } from '../models/user.model';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +13,20 @@ export class AuthService {
   private API_URL = `${environment.API_URL}/api/auth`
 
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+    private tokenService:TokenService
   ) { }
 
-  login(email: string, password:string){
-    return this.http.post<Auth>(`${this.API_URL}/login`, {email, password})
+
+  getProfile(){
+    const headers = new HttpHeaders();
+    return this.http.get<User>(`${this.API_URL}/profile`)
   }
 
-  profile(token:string){
-    return this.http.get(`${this.API_URL}/profile`)
+  login(email:string, password: string){
+    return this.http.post<Auth>(`${this.API_URL}/login`, {email, password}).pipe(
+      tap(response=> this.tokenService.save(response.access_token))
+    )
+
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from './models/product.model';
+import { User } from './models/user.model';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 
@@ -11,6 +12,8 @@ import { UsersService } from './services/users.service';
 export class AppComponent {
   imgParent = 'https://www.w3schools.com/howto/img_avatar.png';
   showImage= true;
+  token = ''
+  email = ''
 
   constructor(
     private authService: AuthService,
@@ -38,7 +41,13 @@ export class AppComponent {
 
   login(){
     this.authService.login('avila@software.com', 'Argenis0rtiz').subscribe(rta=>{
-      console.log(rta.access_token)
+      this.getProfile()
+
     })
   }
+
+  getProfile(){
+    this.authService.getProfile().subscribe(res=> this.email = res.email)
+  }
+
 }
