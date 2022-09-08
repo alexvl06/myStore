@@ -1,0 +1,57 @@
+<div class="show-mobile">
+  <div>
+    <button (click)="btnMenu()">
+      <img width="100px" src="https://cdn.icon-icons.com/icons2/916/PNG/512/Menu_icon_icon-icons.com_71858.png" alt="menu">
+    </button>
+    <a href="">
+      <img width="100px" src="https://www.yardsalexxx.com/wp-content/uploads/2018/07/Yardsale-XXX-Logo-2.png" alt="logo">
+    </a>
+    <a href="">
+      <img width="100px" src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="logo">
+    </a>
+  </div>
+  <div class="side-menu" [class.active]="showMenu">
+    <button (click)="btnMenu()">Close</button>
+    <ul>
+      <li><a routerLinkActive="active"  routerLink="home">All</a></li>
+      <li *ngFor="let category of categories">
+        <a routerLinkActive="active"  [routerLink]="['/category', category.id]">{{category.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hide-mobile">
+  <div>
+    <nav>
+      <a class="logo" href="">
+        <img width="100px" src="https://www.yardsalexxx.com/wp-content/uploads/2018/07/Yardsale-XXX-Logo-2.png" alt="logo">
+      </a>
+      <ul>
+        <li><a routerLinkActive="active"  routerLink="home">All</a></li>
+        <li *ngFor="let category of categories">
+          <a routerLinkActive="active"  [routerLink]="['/category', category.id]">{{category.name}}</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="info">
+      <div class="account">
+        <button *ngIf = "!profile; else elseBlock" (click)="login()">
+          Login
+        </button>
+        <ng-template #elseBlock>
+          <a routerLink="/profile">{{profile?.email}}</a>
+          <br>
+          <button (click)="logout()">Logout</button>
+        </ng-template>
+      </div>
+
+      <div class="cart">
+        <a href="">
+          <img width="100px" src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="logo">
+        </a>
+        <span class="counter">{{counter}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
